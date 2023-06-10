@@ -1,0 +1,297 @@
+//INTELIGENTNE_PRZEJŚCIE_DLA_PIESZYCH
+//W50502_RAFAŁ_KOŁODZIEJ
+//PROJEKT_Kominukacja człowiek-komputer
+//2023
+//C++
+
+
+int LED_RED1 = 2; //SYGNALIZATOR 1- CZERWONE
+int LED_YELLOW1 = 3; //SYGNALIZATOR 1- ŻÓŁTE
+int LED_GREEN1 = 4;//SYGNALIZATOR 1- ZIELONE
+
+int LED_RED2 = 5; //SYGNALIZATOR 2- CZERWONE
+int LED_YELLOW2 = 6; //SYGNALIZATOR 2- ŻÓŁTE
+int LED_GREEN2 = 7;//SYGNALIZATOR 2- ZIELONE
+
+int LED_RED3 = 8; //SYGNALIZATOR PRZEJŚCIA- CZERWONE
+int LED_GREEN3 = 9; //SYGNALIZATOR PRZEJŚCIA- ZIELONE
+
+int sensor = 10; // PIN POŁĄCZONY Z CZUJNIKIEM
+int state = LOW; // RUCH NIE WYKRYTY
+int val = LOW; // ZMIENNA PRZECHOWUJĄCA STAN CZUJNIKA
+
+int timer = 10000;
+
+ int a = 14;
+ int b = 15; 
+ int c = 16; 
+ int d = 17; 
+ int e = 11; 
+ int f = 12; 
+ int g = 13;
+ 
+
+int DELAY_GREEN = 5000;
+int DELAY_RED = 5000;
+int DELAY_YELLOW = 2500;
+
+void setup()
+{
+  pinMode(2, OUTPUT); //SYGNALIZATOR 1- CZERWONE
+  pinMode(3, OUTPUT); //SYGNALIZATOR 1- ŻÓŁTE
+  pinMode(4, OUTPUT); //SYGNALIZATOR 1- ZIELONE
+  pinMode(5, OUTPUT); //SYGNALIZATOR 2- CZERWONE)
+  pinMode(6, OUTPUT); //SYGNALIZATOR 2- ŻÓŁTE
+  pinMode(7, OUTPUT); //SYGNALIZATOR 2- ZIELONE
+  pinMode(8, OUTPUT); //SYGNALIZATOR PRZEJŚCIA- CZERWONE
+  pinMode(9, OUTPUT); //SYGNALIZATOR PRZEJŚCIA- ZIELONE
+  pinMode(LED_GREEN3, OUTPUT); 
+  Serial.begin(9600);
+  pinMode(timer,OUTPUT);
+  
+  pinMode(a, OUTPUT); 
+  pinMode(b, OUTPUT); 
+  pinMode(c, OUTPUT); 
+  pinMode(d, OUTPUT); 
+  pinMode(e, OUTPUT); 
+  pinMode(f, OUTPUT); 
+  pinMode(g, OUTPUT);
+  
+  analogReference (DEFAULT);
+  
+  pinMode(sensor, OUTPUT);
+  digitalWrite(sensor, LOW);
+  delayMicroseconds(2);
+  digitalWrite(sensor, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(sensor, LOW);
+  pinMode(sensor, INPUT); 
+  
+}
+
+void loop()
+{
+  if(digitalRead(sensor) == HIGH){
+    delay(15); 
+    if (digitalRead(sensor) == HIGH){
+      state = HIGH; //RUCH WYKRYTY
+      
+      changeLights();// WYWOŁANIE FUNKJI
+      delay(1000); // CZEKAJ 10 SEKUND DO ZMIANY
+    }
+  }
+  
+  if (digitalRead(sensor) == LOW){
+    delay(15); 
+    if (digitalRead(sensor) == LOW){
+      state = LOW; // RUCH NIE WYKTYTY
+     
+      
+      green_light();
+      delay(DELAY_GREEN);
+      yellow_light();
+      delay(DELAY_YELLOW);
+      red_light();
+      delay(DELAY_RED);
+      }
+  } 
+}      
+      
+void display()
+{
+  delay(1000); // OPÓŹNIENIE
+  digitalWrite(LED_GREEN3, HIGH);
+  //9
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, LOW); //d
+  digitalWrite(11, HIGH); //e
+  digitalWrite(12, LOW); //f
+  digitalWrite(13, LOW); //g
+  delay(1000);
+  
+   //8
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, LOW); //d
+  digitalWrite(11, LOW); //e
+  digitalWrite(12, LOW); //f
+  digitalWrite(13, LOW); //g
+  delay(1000);
+  
+   //7
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, HIGH); //d
+  digitalWrite(11, HIGH); //e
+  digitalWrite(12, HIGH); //f
+  digitalWrite(13, HIGH); //g
+  delay(1000);
+   
+   //6
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, HIGH); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, LOW); //d
+  digitalWrite(11, LOW); //e
+  digitalWrite(12, LOW); //f
+  digitalWrite(13, LOW); //g
+  delay(1000);
+  
+    //5
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, HIGH); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, LOW); //d
+  digitalWrite(11, HIGH); //e
+  digitalWrite(12, LOW); //f
+  digitalWrite(13, LOW); //g
+  delay(500);
+  
+    //4
+  digitalWrite(14, HIGH); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, HIGH); //d
+  digitalWrite(11, HIGH); //e
+  digitalWrite(12, LOW); //f
+  digitalWrite(13, LOW); //g
+  delay(1000);
+  
+    //3
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, LOW); //d
+  digitalWrite(11, HIGH); //e
+  digitalWrite(12, HIGH); //f
+  digitalWrite(13, LOW); //g
+  delay(1000);
+  
+    //2
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, HIGH); //c
+  digitalWrite(17, LOW); //d
+  digitalWrite(11, LOW); //e
+  digitalWrite(12, HIGH); //f
+  digitalWrite(13, LOW); //g
+  delay(1000);
+  
+    //1
+  digitalWrite(14, HIGH); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, HIGH); //d
+  digitalWrite(11, HIGH); //e
+  digitalWrite(12, HIGH); //f
+  digitalWrite(13, HIGH); //g
+  delay(1000);
+  
+    //0
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, LOW); //d
+  digitalWrite(11, LOW); //e
+  digitalWrite(12, LOW); //f
+  digitalWrite(13, HIGH); //g
+   
+  delay(1000);
+  
+    //off
+  digitalWrite(14, LOW); //a
+  digitalWrite(15, LOW); //b
+  digitalWrite(16, LOW); //c
+  digitalWrite(17, LOW); //d
+  digitalWrite(11, LOW); //e
+  digitalWrite(12, LOW); //f
+  digitalWrite(13, HIGH); //g
+  
+  delay(1000);
+  
+}
+          
+void changeLights()
+{
+  //wyłącz żółte TL 1 i 2, a następnie włącz PL czerwone na 5 sekund
+  //TL 1&2 Green + PL Green jest wyłączone w oparciu o poprzednią część
+  digitalWrite(LED_YELLOW1, LOW); // SYGNALIZATOR 1 yellow off
+  digitalWrite(LED_YELLOW2, LOW); // SYGNALIZATOR 2 yellow off
+  digitalWrite(LED_RED1, HIGH); // SYGNALIZATOR1 red on
+  digitalWrite(LED_RED2, HIGH); // SYGNALIZATOR2 red on
+  digitalWrite(LED_RED3, HIGH); // SYGNALIZATOR PRZEJŚCIA red on
+  digitalWrite(LED_GREEN3, HIGH); // SYGNALIZATOR PRZEJŚCIA  Green on
+  digitalWrite(LED_GREEN2, LOW); // SYGNALIZATOR 2 Green off
+  digitalWrite(LED_GREEN1, LOW); // SYGNALIZATOR  Green off
+  delay(1000);
+ 
+  digitalWrite(LED_YELLOW1, LOW); // SYGNALIZATOR 1 yellow 
+  digitalWrite(LED_YELLOW2, LOW); // SYGNALIZATOR 2 yellow 
+  digitalWrite(LED_RED1, HIGH); // SYGNALIZATOR1 red 
+  digitalWrite(LED_RED2, HIGH); // SYGNALIZATOR2 red 
+  digitalWrite(LED_RED3, LOW); // SYGNALIZATOR PRZEJŚCIA red 
+  digitalWrite(LED_GREEN3, LOW); // SYGNALIZATOR PRZEJŚCIA  Green 
+  digitalWrite(LED_GREEN2, LOW); // SYGNALIZATOR 2 Green 
+  digitalWrite(LED_GREEN1, LOW); // SYGNALIZATOR1  Green 
+  delay(1000);
+  display(); // WYŚWIETLACZ ZACZYNA ODLICZANIE OD 9 DO 0
+  delay(1000);
+  
+}
+          
+void green_light()
+{
+
+ //
+  digitalWrite(LED_GREEN1,HIGH); 
+  digitalWrite(LED_RED1,LOW);
+  digitalWrite(LED_YELLOW1, LOW); 
+  
+  digitalWrite(LED_GREEN2, HIGH);
+  digitalWrite(LED_RED2, LOW); 
+  digitalWrite(LED_YELLOW2, LOW); 
+  
+  digitalWrite(LED_GREEN3, LOW); 
+  digitalWrite(LED_RED3, HIGH); 
+}
+
+void yellow_light()
+{
+
+ // 
+  digitalWrite(LED_GREEN1,LOW); 
+  digitalWrite(LED_RED1,LOW);
+  digitalWrite(LED_YELLOW1, HIGH); 
+  
+  digitalWrite(LED_GREEN2, LOW);
+  digitalWrite(LED_RED2, LOW); 
+  digitalWrite(LED_YELLOW2, HIGH); 
+  
+  digitalWrite(LED_GREEN3, LOW); 
+  digitalWrite(LED_RED3, HIGH); 
+}
+  
+  
+void red_light()
+{
+
+  digitalWrite(LED_GREEN1,LOW); 
+  digitalWrite(LED_RED1,HIGH);
+  digitalWrite(LED_YELLOW1, LOW); 
+  
+  digitalWrite(LED_GREEN2, LOW);
+  digitalWrite(LED_RED2, HIGH); 
+  digitalWrite(LED_YELLOW2, LOW); 
+  
+  digitalWrite(LED_GREEN3, LOW); 
+  digitalWrite(LED_RED3, HIGH); 
+}
+  
+  
+
+  
+  
